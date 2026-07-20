@@ -20,8 +20,13 @@ Added a Subnet inside the VNet to segment network traffic logically.
 Day 7 (2026-07-04):  
 Created a Public IP Address for our VM, enabling external access.
 
-🎯 Experience Points Earned: 500
+🎯 Experience Points Earned: 3500
 This week gave us hands-on exposure to Azure’s core building blocks: compute (VMs), networking (VNets, subnets, IPs), and security (SSH keys).
  
-✨ Weekly Reflection:  
+✨ Reflection:
+This week gave us hands-on exposure to Azure’s core building blocks: compute (VMs), networking (VNets, subnets, IPs), and security (SSH keys). It set the stage for deeper exploration in the coming weeks.
 This week we mastered the basics of Azure compute and networking — from secure VM access with SSH keys to building VNets, subnets, and public IPs. These are the building blocks for everything we’ll do next.
+# XP Tracker
+Weekly_XP = 3500
+Cumulative_XP = 3500
+Fix Week 1 log with XP tracker
