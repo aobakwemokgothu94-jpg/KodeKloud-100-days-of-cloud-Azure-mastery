@@ -1,29 +1,39 @@
-name: Update XP Scoreboard
+# XP-tracker/update_xp.py
+import re
+import sys
+from pathlib import Path
 
-on:
-  push:
-    paths:
-      - "Week-*/week-*.md"
+README_PATH = Path(__file__).resolve().parent.parent / "README.md"
 
-jobs:
-  update-xp:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+def calculate_cumulative_xp(weeks, xp_per_week=3500):
+    return [week * xp_per_week for week in range(1, weeks + 1)]
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.x"
+def build_scoreboard_text(weeks, xp_per_week=3500):
+    cumulative_xp = calculate_cumulative_xp(weeks, xp_per_week)
+    return "\n".join([f"Week-{i}: {xp} XP" for i, xp in enumerate(cumulative_xp, start=1)])
 
-      - name: Run XP update script
-        run: python XP-tracker/update_xp.py 7
+def build_mermaid_chart(weeks, xp_per_week=3500):
+    cumulative_xp = calculate_cumulative_xp(weeks, xp_per_week)
+    chart_lines = [f'    "Week-{i}" : {xp}' for i, xp in enumerate(cumulative_xp, start=1)]
+    chart = "```mermaid\nline\n    title Azure Mastery XP Progress\n    xAxis Weeks\n    yAxis XP\n" + "\n".join(chart_lines) + "\n```"
+    return chart
 
-      - name: Commit changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add README.md
-          git commit -m "Auto-update XP scoreboard"
-          git push
+def update_readme(weeks=7, xp_per_week=3500):
+    content = README_PATH.read_text(encoding="utf-8")
+
+    scoreboard_text = build_scoreboard_text(weeks, xp_per_week)
+    mermaid_chart = build_mermaid_chart(weeks, xp_per_week)
+
+    # Replace old scoreboard section
+    new_content = re.sub(
+        r"(Azure Mastery XP Scoreboard[\s\S]*?)(?=\n##|\Z)",
+        f"Azure Mastery XP Scoreboard\n{scoreboard_text}\n\n## XP Progress Chart\n{mermaid_chart}\n",
+        content,
+    )
+
+    README_PATH.write_text(new_content, encoding="utf-8")
+    print("✅ README updated with latest XP scoreboard and chart!")
+
+if __name__ == "__main__":
+    weeks = int(sys.argv[1]) if len(sys.argv) > 1 else 7
+    update_readme(weeks)
