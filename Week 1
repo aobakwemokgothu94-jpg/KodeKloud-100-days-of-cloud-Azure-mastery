@@ -1,0 +1,27 @@
+📘 Week 1: Azure Fundamentals in Action
+Day 1 (2026-06-24):  
+Generated an SSH Key Pair to securely connect to Azure Virtual Machines.
+
+Day 2 (2026-06-25):  
+Deployed our first Azure Virtual Machine using the Azure Portal.
+
+Day 3 (2026-06-26):  
+Practiced creating a VM via Azure CLI, reinforcing command-line skills.
+
+Day 4 (2026-06-28):  
+Built a Virtual Network (VNet) to enable secure communication between resources.
+
+Day 5 (2026-06-29):  
+Configured a Virtual Network with IPv4 addressing, learning about IP ranges and allocation.
+
+Day 6 (2026-07-02):  
+Added a Subnet inside the VNet to segment network traffic logically.
+
+Day 7 (2026-07-04):  
+Created a Public IP Address for our VM, enabling external access.
+
+🎯 Experience Points Earned: 500
+This week gave us hands-on exposure to Azure’s core building blocks: compute (VMs), networking (VNets, subnets, IPs), and security (SSH keys).
+ 
+✨ Weekly Reflection:  
+This week we mastered the basics of Azure compute and networking — from secure VM access with SSH keys to building VNets, subnets, and public IPs. These are the building blocks for everything we’ll do next.
