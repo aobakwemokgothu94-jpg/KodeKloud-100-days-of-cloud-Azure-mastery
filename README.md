@@ -21,3 +21,13 @@ KodeKloud-100-days-of-cloud-Azure-mastery/
 ├── Week-7/
 │   └── week-7.md
 
+# Azure Mastery XP Scoreboard
+Week-1: 3500 XP
+Week-2: 3500 XP
+Week-3: 3500 XP
+Week-4: 3500 XP
+Week-5: 3500 XP
+Week-6: 3500 XP
+Week-7: 3500 XP
+
+Total_XP = 24500
