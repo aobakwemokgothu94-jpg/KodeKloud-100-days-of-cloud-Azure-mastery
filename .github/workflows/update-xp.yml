@@ -1,57 +1,68 @@
-# XP-tracker/update_xp.py
-import re
-import sys
-from pathlib import Path
 
-README_PATH = Path(__file__).resolve().parent.parent / "README.md"
+name: Update XP
 
-def calculate_cumulative_xp(weeks, xp_per_week=3500):
-    return [week * xp_per_week for week in range(1, weeks + 1)]
+on:
+  push:
+    branches:
+      - main
 
-def build_scoreboard_text(weeks, xp_per_week=3500):
-    cumulative_xp = calculate_cumulative_xp(weeks, xp_per_week)
-    return "\n".join([f"Week-{i}: {xp} XP" for i, xp in enumerate(cumulative_xp, start=1)])
+jobs:
+  update-xp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-def build_mermaid_chart(weeks, xp_per_week=3500):
-    cumulative_xp = calculate_cumulative_xp(weeks, xp_per_week)
-    chart_lines = [f'    "Week-{i}" : {xp}' for i, xp in enumerate(cumulative_xp, start=1)]
-    chart = "```mermaid\nline\n    title Azure Mastery XP Progress\n    xAxis Weeks\n    yAxis XP\n" + "\n".join(chart_lines) + "\n```"
-    return chart
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-def update_readme(weeks=7, xp_per_week=3500):
-    content = README_PATH.read_text(encoding="utf-8")
+      - name: Install dependencies
+        run: pip install -r requirements.txt || true
 
-    scoreboard_text = build_scoreboard_text(weeks, xp_per_week)
-    mermaid_chart = build_mermaid_chart(weeks, xp_per_week)
+      - name: Run XP update script
+        run: python XP-tracker/update_xp.py 7
 
-    # Replace old scoreboard section
-    new_content = re.sub(
-        r"(Azure Mastery XP Scoreboard[\s\S]*?)(?=\n##|\Z)",
-        f"Azure Mastery XP Scoreboard\n{scoreboard_text}\n\n## XP Progress Chart\n{mermaid_chart}\n",
-        content,
-    )
-- name: Cache
-  uses: actions/cache@v5.1.0
-  with:
-    # A list of files, directories, and wildcard patterns to cache and restore
-    path: 
-    # An explicit key for restoring and saving the cache
-    key: 
-    # An ordered multiline string listing the prefix-matched keys, that are used for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
-    restore-keys: # optional
-    # The chunk size used to split up large files during upload, in bytes
-    upload-chunk-size: # optional
-    # An optional boolean when enabled, allows windows runners to save or restore caches that can be restored or saved respectively on other platforms
-    enableCrossOsArchive: # optional, default is false
-    # Fail the workflow if cache entry is not found
-    fail-on-cache-miss: # optional, default is false
-    # Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache
-    lookup-only: # optional, default is false
-    # Run the post step to save the cache even if another step before fails
-    save-always: # optional, default is false
-    README_PATH.write_text(new_content, encoding="utf-8")
-    print("✅ README updated with latest XP scoreboard and chart!")
+      - name: Commit updated README
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update XP scoreboard"
+          git push
+          name: Update XP
 
-if __name__ == "__main__":
-    weeks = int(sys.argv[1]) if len(sys.argv) > 1 else 7
-    update_readme(weeks)
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 0'   # every Sunday at midnight UTC
+
+jobs:
+  update-xp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt || true
+
+      - name: Run XP update script
+        run: python XP-tracker/update_xp.py 7
+
+      - name: Commit updated README
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update XP scoreboard"
+          git push
+
