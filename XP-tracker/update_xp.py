@@ -35,3 +35,7 @@ if __name__ == "__main__":
     # Default: 7 weeks, 3500 XP each
     weeks = int(sys.argv[1]) if len(sys.argv) > 1 else 7
     update_readme(weeks)
+if __name__ == "__main__":
+    # Default: 8 weeks, 3500 XP each
+    weeks = int(sys.argv[1]) if len(sys.argv) > 1 else 8
+    update_readme(weeks)
