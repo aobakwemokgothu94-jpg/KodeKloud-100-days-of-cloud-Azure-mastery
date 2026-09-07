@@ -1,3 +1,11 @@
-theme: minima
-title: Aobakwe’s Cloud Blog
-description: My 100 Days of Cloud journey
+title: "KodeKloud 100 Days — Azure mastery"
+description: "Hands-on 100-day Azure learning journal (Days 1–50). Portfolio-ready projects and weekly lab notes."
+baseurl: ""
+url: ""
+markdown: kramdown
+permalink: /:path/
+collections: {}
+include:
+  - portfolio
+
+# Keep the site minimal — GitHub Pages can render these markdown files directly.

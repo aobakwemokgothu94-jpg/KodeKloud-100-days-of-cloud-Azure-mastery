@@ -1,0 +1,15 @@
+<h4 style="margin-top:0">Navigation</h4>
+<ul style="padding-left:16px;margin:6px 0 10px;">
+  <li><a href="/">Home</a></li>
+  <li><a href="/portfolio/">Portfolio</a></li>
+</ul>
+<hr />
+
+<ul style="padding-left:16px;margin:10px 0;list-style-type:none;">
+  {% assign pages_list = site.pages | sort: 'path' %}
+  {% for p in pages_list %}
+    {% if p.path contains 'Week-' or p.path contains 'portfolio' %}
+      <li style="margin:6px 0;"><a href="{{ p.url }}">{{ p.title | default: p.path }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
