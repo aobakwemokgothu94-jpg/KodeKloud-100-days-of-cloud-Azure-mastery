@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ page.title | default: site.title }}</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial,Helvetica;margin:0;background:#f7fafc;color:#0f1724}
+    header{background:#0b1220;color:#fff;padding:18px}
+    .container{max-width:980px;margin:24px auto;padding:0 18px}
+    .layout{display:grid;grid-template-columns:220px 1fr;gap:20px}
+    nav{background:#fff;border:1px solid #e2e8f0;padding:12px;border-radius:8px}
+    main{background:#fff;border:1px solid #e2e8f0;padding:18px;border-radius:8px}
+    a{color:#0ea5a4;text-decoration:none}
+    footer{margin-top:18px;color:#64748b;font-size:13px}
+    @media(max-width:820px){.layout{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 style="margin:0">{{ site.title }}</h1>
+      <p style="margin:6px 0 0;color:#94a3b8">{{ site.description }}</p>
+    </div>
+  </header>
+
+  <div class="container layout">
+    <nav>
+      {% include sidebar.html %}
+    </nav>
+
+    <main>
+      {{ content }}
+      <footer>
+        <p>Repository: <a href="https://github.com/{{ site.github.owner_name }}/{{ site.github.repository_name }}">{{ site.github.owner_name }}/{{ site.github.repository_name }}</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
