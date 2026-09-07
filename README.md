@@ -41,4 +41,5 @@ Want me to: (pick one)
 - Convert this repo into a polished Jekyll site with sidebar navigation
 - Create three concise portfolio pages (I can auto-generate from weeks)
 - Harden the XP-tracker GitHub Action and document how it works
+- 
 https://engineer.kodekloud.com/certificate-verification/d51c3a76-ec1f-42df-be05-73e5478a231d
